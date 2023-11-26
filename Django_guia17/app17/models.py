@@ -1,16 +1,15 @@
 from django.db import models
 
-
+#Creación del modelo que almacena los datos de los clientes
 class Cliente(models.Model): 
     nombre = models.CharField(max_length=50) 
     apellido = models.CharField(max_length=50)
-    tipo = models.CharField(max_length=20)
     direccion = models.CharField(max_length=40)
 
     def __str__(self) -> str:
-        return f"nombre: {self.nombre} apellido: {self.apellido} tipo de cliente:{self.tipo} dirección: {self.direccion}"
+        return f" {self.nombre} {self.apellido}"
      
-
+#Creación del modelo que almacena los datos de los empleados de la empresa
 class Empleado(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50) 
@@ -19,9 +18,9 @@ class Empleado(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="empleados") 
     
     def __str__(self) -> str:
-        return f"nombre: {self.nombre} apellido: {self.apellido} cargo: {self.cargo} dirección: {self.cargo} cliente: {self.cliente}"
+        return f"{self.nombre} {self.apellido} | {self.cargo}"
     
-
+#Creación del modelo que almacena los datos de la factura hecha
 class Factura(models.Model):
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     impuesto = models.DecimalField(max_digits=5, decimal_places=2)
@@ -30,14 +29,13 @@ class Factura(models.Model):
     empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE, related_name="facturas") 
     
     def __str__(self) -> str:
-        return f"monto: {self.monto} impuesto: {self.impuesto} estado: {self.estado} cliente: {self.cliente} empleado: {self.empleado}"
+        return f"Monto: {self.monto} | Cliente: {self.cliente}"
 
-
+#Creación del modelo que registra los datos de las ventas hechas
 class Registro(models.Model):
     tipo = models.CharField(max_length=50)
     fecha = models.DateField()
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE, related_name="registros") 
     
-    
     def __str__(self) -> str:
-        return f"tipo: {self.tipo} fecha: {self.fecha} factura: {self.factura}"
+        return f"Factura: {self.factura} | fecha: {self.fecha}"

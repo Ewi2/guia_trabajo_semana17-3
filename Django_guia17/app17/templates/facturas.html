@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Facturas</title>
+    <!-- Agregar un poco de estilo al html -->
+    <style>
+        h1 {
+            color: #54B435;
+            font-family: "SF Pro Bold", sans-serif;
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            font-family: 'SF Pro Text', sans-serif;
+            font-weight: normal;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        @font-face {
+            font-family: 'SF Pro Bold',sans-serif;
+            src: url(fonts/SF-Pro-Display-Bold.otf) format('opentype');
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: 'SF Pro Text',sans-serif;
+            src: url(fonts/SF-Pro-Text-Regular.otf) format('opentype');
+            font-weight:normal;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">Lista de Facturas</h1>
+    <table border="1" align="center">
+        <tr>
+            <th>ID</th>
+            <th>Monto</th>
+            <th>Impuesto</th>
+            <th>Estado</th>
+            <th>Cliente</th> <!-- Agregar la columna de cliente -->
+            <th>Empleado</th> <!-- Agregar la columna de empleado -->
+        </tr>
+        {% for factura in factura %} <!-- Usar el mismo nombre que usaste en el view para iterar sobre las facturas -->
+        <tr>
+            <td>{{ factura.id }}</td>
+            <!-- Usar los nombres de los atributos que definí en el modelo de Factura -->
+            <td>{{ factura.monto }}</td>
+            <td>{{ factura.impuesto }}</td>
+            <td>{{ factura.estado }}</td>
+            <td>{{ factura.cliente }}</td> <!-- Mostrar el cliente al que pertenece la factura -->
+            <td>{{ factura.empleado }}</td> <!-- Mostrar el empleado que generó la factura -->
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
